@@ -4,7 +4,7 @@ import 'date_picker.dart';
 import 'date_picker_constants.dart';
 import 'i18n/date_picker_i18n.dart';
 
-const String DATE_FORMAT_SEPARATOR = r'[|,-\._: ]+';
+const String DATE_FORMAT_SEPARATOR = r'[|,-\._:]+';
 
 class DateTimeFormatter {
   /// Get default value of date format.
@@ -24,9 +24,14 @@ class DateTimeFormatter {
     return '';
   }
 
-  /// Check if the date format is for day(contain y、M、d、E) or not.
-  static bool isDayFormat(String format) {
+  /// Check if the date format is for date(contain y、M、d、E) or not.
+  static bool isDateFormat(String format) {
     return format.contains(RegExp(r'[yMdE]'));
+  }
+
+  /// Check if the date format is for day(contain d、E) or not.
+  static bool isDayFormat(String format) {
+    return format.contains(RegExp(r'[dE]'));
   }
 
   /// Check if the date format is for time(contain H、m、s) or not.
@@ -47,7 +52,7 @@ class DateTimeFormatter {
       StringBuffer dayFormat = StringBuffer();
       for (int i = 0; i < result.length; i++) {
         String format = result[i];
-        if (isDayFormat(format)) {
+        if (isDateFormat(format)) {
           // find format pre-separator
           int end = dateFormat.indexOf(format);
           if (end > 0) {

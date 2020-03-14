@@ -224,11 +224,18 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
   }
 
   Widget _renderDatePickerItemComponent(int value, String format) {
+    String text;
+    if (DateTimeFormatter.isDayFormat(format)) {
+      DateTime currentDate = DateTime(_currYear, _currMonth, value);
+      text = DateTimeFormatter.formatDate(currentDate, format, widget.locale);
+    } else {
+      text = DateTimeFormatter.formatDateTime(value, format, widget.locale);
+    }
     return Container(
       height: widget.pickerTheme.itemHeight,
       alignment: Alignment.center,
       child: Text(
-        DateTimeFormatter.formatDateTime(value, format, widget.locale),
+        text,
         style:
             widget.pickerTheme.itemTextStyle ?? DATETIME_PICKER_ITEM_TEXT_STYLE,
       ),
