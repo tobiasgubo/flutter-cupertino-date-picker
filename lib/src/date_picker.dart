@@ -83,7 +83,7 @@ class DatePicker {
         }
       }
     } else {
-      dateFormat = DateTimeFormatter.generateDateFormat(pickerMode);
+      dateFormat = DateTimeFormatter.generateDateFormat(dateFormat, pickerMode);
     }
 
     Navigator.push(
